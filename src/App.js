@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import CreateGame from './components/CreateGame/CreateGame';
 import Catalog from './components/Catalog/Catalog';
+import Details from './components/Details/Details';
 import { useEffect, useState } from "react";
 import * as GameService from './services/GameService'
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/create" element={<CreateGame/>}/>
           <Route path="/catalog" element={<Catalog games={games}/>}/>
+          <Route path="/catalog/:gameId" element={<Details games={games}/>}/>
         </Routes>
       </main>
     </div>
