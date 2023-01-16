@@ -12,6 +12,18 @@ import * as GameService from './services/GameService'
 
 function App() {
   const [games, setGames] = useState([]);
+  const addComment = (gameId, comment) => {
+    setGames(state => {
+      const game = state.find(x => x._id == gameId);
+      const comments = game.comments || [];
+      comments.push(comment);
+
+      return [
+        ...state.filter(x => x._id !== gameId),
+        {...game, comments}
+      ]
+    })
+  }
 
   useEffect(() => {
       GameService.getAll()
@@ -30,7 +42,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/create" element={<CreateGame/>}/>
           <Route path="/catalog" element={<Catalog games={games}/>}/>
-          <Route path="/catalog/:gameId" element={<Details games={games}/>}/>
+          <Route path="/catalog/:gameId" element={<Details games={games} addComment={addComment}/>}/>
         </Routes>
       </main>
     </div>
