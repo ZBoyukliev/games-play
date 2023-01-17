@@ -7,18 +7,39 @@ const Details = ({ games, addComment }) => {
         username: ``,
         comment: ``
     })
+    const [error, setError] = useState({
+        username:``,
+        comment:``
+    })
+
     const game = games.find(x => x._id == gameId);
 
     const addCommentHandler = (e) => {
         e.preventDefault()
         addComment(gameId,`${comment.username}: ${comment.comment}`)
     }
+
     const onChange = (e) => {
         setComment(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
     }
+
+    const validateUsername = (e) => {
+        const username = e.target.value;
+        let errorMsg = ``
+        if(username.length < 4) {
+            errorMsg = `Username must be at least 4 characters long`
+        } else if(username.length > 10) {
+            errorMsg = `Username must be shorter then 10 characters`
+        }
+        setError(state => ({
+            ...state,
+            username: errorMsg
+        }))
+    }
+
     return (<section id="game-details">
         <h1>Game Details</h1>
         <div className="info-section">
@@ -63,14 +84,19 @@ const Details = ({ games, addComment }) => {
                     name="username"
                     placeholder="Ahil from Troy"
                     onChange={onChange}
+                    onBlur={validateUsername}
                     value={comment.username}
                 />
+                 {error.username && 
+                 <div style={{color:`red`}}>{error.username}</div>
+                 }
                 <textarea
                     name="comment"
                     placeholder="Comment......"
                     onChange={onChange}
                     value={comment.comment}
                 />
+               
                 <input
                     className="btn submit"
                     type="submit"
