@@ -1,4 +1,4 @@
- const request = async (method , url, data) => {
+export const request = async (method, url, data) => {
     try {
         let buildRequest;
 
@@ -8,7 +8,7 @@
             buildRequest = fetch(url, {
                 method,
                 headers: {
-                    'content-type': `applicayion/json`
+                    'content-type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
