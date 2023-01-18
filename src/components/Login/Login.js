@@ -16,9 +16,7 @@ const Login = () => {
             userLogin(authData);
             navigate(`/`);
         })
-        .catch(() => {
-            navigate(`/catalog`)
-        })
+       
     };
 
     return (<section id="login-page" className="auth">
