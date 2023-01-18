@@ -11,8 +11,9 @@ export const Header = () => {
       </Link>
     </h1>
     <nav>
+      {user.email && <span>Wellcome {user.email} </span>}
       <Link to="/catalog">All games</Link>
-      {user ?
+      {user.email ?
         <div id="user">
           <Link to="/create">Create Game</Link>
           <Link to="/logout">Logout</Link>

@@ -3,6 +3,7 @@ import { Header } from './components/Header/Header';
 import Home from './components/Home/Home';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './components/Login/Login';
+import { Logout } from './components/Logout/Logout';
 import Register from './components/Register/Register';
 import CreateGame from './components/CreateGame/CreateGame';
 import Catalog from './components/Catalog/Catalog';
@@ -19,7 +20,11 @@ function App() {
 
   const userLogin = (authData) => {
     setAuth(authData)
-  }
+  };
+
+  const userLogout = () => {
+    setAuth({})
+  };
 
   const addComment = (gameId, comment) => {
     setGames(state => {
@@ -50,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user: auth, userLogin }}>
+    <AuthContext.Provider value={{user: auth, userLogin, userLogout }}>
       
         <div id="box">
           <Header />
@@ -58,6 +63,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home games={games} />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
               <Route path="/register" element={<Register />} />
               <Route path="/create" element={<CreateGame addGameHandler={addGameHandler} />} />
               <Route path="/catalog" element={<Catalog games={games} />} />
