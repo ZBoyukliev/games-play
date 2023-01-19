@@ -12,10 +12,11 @@ import { useEffect, useState } from "react";
 import * as GameService from './services/GameService'
 import uniqid from 'uniqid'
 import { AuthContext } from './context/AuthContext';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
   const [games, setGames] = useState([]);
-  const [auth, setAuth] = useState({})
+  const [auth, setAuth] = useLocalStorage('auth', {})
   const navigate = useNavigate();
 
   const userLogin = (authData) => {
