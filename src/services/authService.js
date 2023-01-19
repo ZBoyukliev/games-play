@@ -5,17 +5,20 @@ export const login = (email, password) => {
   return request.post(`${baseUrl}/login`, { email, password })
 };
 
-export const logout = async(accessToken) => {
+export const logout = async (accessToken) => {
 
   try {
-   const response = await fetch(`${baseUrl}/logout`, {
+    const response = await fetch(`${baseUrl}/logout`, {
       headers: {
         'X-Authorization': accessToken
       },
     });
     return response
 
-  } catch(error) {
-  
+  } catch (error) {
+
   }
 };
+
+export const register = (email, password) =>
+  request.post(`${baseUrl}/register`, { email, password })
