@@ -1,9 +1,17 @@
 export const request = async (method, url, data) => {
     try {
+        const user = localStorage.getItem('auth');
+        const auth = JSON.parse(user || '{}');
+        let headers = {};
+
+        if(auth.accessToken) {
+            headers[`X-Authorization`] = auth.accessToken;
+        };
+
         let buildRequest;
 
         if(method ===`GET`) {
-            buildRequest = fetch(url)
+            buildRequest = fetch(url, { headers })
         } else {
             buildRequest = fetch(url, {
                 method,
