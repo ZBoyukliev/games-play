@@ -16,6 +16,7 @@ export const request = async (method, url, data) => {
             buildRequest = fetch(url, {
                 method,
                 headers: {
+                    ...headers,
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(data)

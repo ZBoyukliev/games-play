@@ -1,18 +1,30 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
+import * as GameService from '../../services/GameService'
 
 const Details = ({ games, addComment }) => {
+
     const { gameId } = useParams();
+    const { user } = useContext(AuthContext)
     const [comment, setComment] = useState({
         username: ``,
         comment: ``
-    })
+    });
+
+    useEffect(() => {
+        GameService.getOne(gameId)
+    });
+
     const [error, setError] = useState({
         username:``,
         comment:``
     })
 
     const game = games.find(x => x._id == gameId);
+    const isOwner = game._ownerId === user._id;
 
     const addCommentHandler = (e) => {
         e.preventDefault()
@@ -65,15 +77,18 @@ const Details = ({ games, addComment }) => {
                 </ul>
                 {!game.comments && <p className="no-comment">No comments.</p>}
             </div>
-            {/* Edit/Delete buttons ( Only for creator of this game )  */}
-            {/* <div className="buttons">
-                <a href="#" className="button">
+          
+          {isOwner ?   <div className="buttons">
+                <Link to={`/games/${gameId}/edit`} className="button">
                     Edit
-                </a>
+                </Link>
                 <a href="#" className="button">
                     Delete
                 </a>
-            </div> */}
+            </div> 
+            : null
+            }
+          
         </div>
 
         <article className="create-comment">
